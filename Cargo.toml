@@ -12,6 +12,21 @@ categories = ["development-tools::debugging"]
 
 [dependencies]
 log = "0.4"
+coarsetime = { version = "0.1", optional = true }
 
 [dev-dependencies]
 testing_logger = "0.1"
+criterion = { version = "0.6.0", features = ["html_reports"] }
+
+[features]
+default = []
+coarsetime = ["dep:coarsetime"]
+
+[[bench]]
+name = "log_hz_benchmarks"
+harness = false
+
+[[bench]]
+name = "log_hz_coarsetime_benchmark"
+harness = false
+required-features = ["coarsetime"]
