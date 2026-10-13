@@ -81,38 +81,38 @@
 //! See the documentation for the logger you are using for more information.
 //!
 //! Note: This crate uses `std::time::Instant` to track time, which is not available in `no_std` environments.
-//! If you're interested in alternative timing backends for this crate, feel free to open an issue or PR to add them behind features. 
+//! If you're interested in alternative timing backends for this crate, feel free to open an issue or PR to add them behind features.
 
 pub use log::*;
 
 /// Log a message at [Level::Error] at a throttled rate, first call will always log.
 #[macro_export]
 macro_rules! error_hz {
-    ($rate:expr,$($arg:tt)+) => { $crate::log_hz!($crate::Level::Error, $rate, $($arg)+); }
+    ($rate:expr,$($arg:tt)+) => { $crate::log_hz!($crate::Level::Error, $rate, $($arg)+) }
 }
 
 /// Log a message at [Level::Warn] at a throttled rate, first call will always log.
 #[macro_export]
 macro_rules! warn_hz {
-    ($rate:expr,$($arg:tt)+) => { $crate::log_hz!($crate::Level::Warn, $rate, $($arg)+); }
+    ($rate:expr,$($arg:tt)+) => { $crate::log_hz!($crate::Level::Warn, $rate, $($arg)+) }
 }
 
 /// Log a message at [Level::Info] at a throttled rate, first call will always log.
 #[macro_export]
 macro_rules! info_hz {
-    ($rate:expr,$($arg:tt)+) => { $crate::log_hz!($crate::Level::Info, $rate, $($arg)+); }
+    ($rate:expr,$($arg:tt)+) => { $crate::log_hz!($crate::Level::Info, $rate, $($arg)+) }
 }
 
 /// Log a message at [Level::Debug] at a throttled rate, first call will always log.
 #[macro_export]
 macro_rules! debug_hz {
-    ($rate:expr,$($arg:tt)+) => { $crate::log_hz!($crate::Level::Debug, $rate, $($arg)+); }
+    ($rate:expr,$($arg:tt)+) => { $crate::log_hz!($crate::Level::Debug, $rate, $($arg)+) }
 }
 
 /// Log a message at [Level::Trace] at a throttled rate, first call will always log.
 #[macro_export]
 macro_rules! trace_hz {
-    ($rate:expr,$($arg:tt)+) => { $crate::log_hz!($crate::Level::Trace, $rate, $($arg)+); }
+    ($rate:expr,$($arg:tt)+) => { $crate::log_hz!($crate::Level::Trace, $rate, $($arg)+) }
 }
 
 /// Log a message at the specified level at a throttled rate, first call will always log.
@@ -132,7 +132,7 @@ macro_rules! log_hz {
                 // If we haven't logged before, log and set the tick
                 None => {
                     *tick = Some(std::time::Instant::now());
-                    $crate::log!($level, $($arg)+);
+                    $crate::log!($level, $($arg)+)
                 },
                 // If we have logged before, check the interval
                 Some(ref mut tick) => {
@@ -141,7 +141,7 @@ macro_rules! log_hz {
                     if time_since_last > *INTERVAL {
                         // If it's been long enough, log and update the tick
                         *tick = now;
-                        $crate::log!($level, $($arg)+);
+                        $crate::log!($level, $($arg)+)
                     }
                 }
             }
